@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">StackoverflowReader</string>
+    <string name="user_name">User name</string>
+    <string name="user_id">user_ID</string>
+    <string name="account_id">account_ID</string>
+    <string name="next_user">Next user</string>
 </resources>
