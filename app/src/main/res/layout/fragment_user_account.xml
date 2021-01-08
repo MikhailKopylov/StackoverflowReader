@@ -26,11 +26,11 @@
         android:text="@string/account_id"
         android:gravity="center"/>
 
-    <Button
-        android:id="@+id/next_user_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/next_user"
-        />
+<!--    <Button-->
+<!--        android:id="@+id/next_user_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/next_user"-->
+<!--        />-->
 
 </LinearLayout>

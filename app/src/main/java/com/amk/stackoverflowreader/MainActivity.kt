@@ -1,7 +1,7 @@
 package com.amk.stackoverflowreader
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.amk.stackoverflowreader.view.UserAccountFragment
 
 class MainActivity : AppCompatActivity() {

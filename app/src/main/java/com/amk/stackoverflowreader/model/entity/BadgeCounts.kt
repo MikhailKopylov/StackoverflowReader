@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.model
+package com.amk.stackoverflowreader.model.entity
 
 data class BadgeCounts(
         val bronze: Int,

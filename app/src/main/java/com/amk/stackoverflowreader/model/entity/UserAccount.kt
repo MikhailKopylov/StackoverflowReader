@@ -1,10 +1,18 @@
 package com.amk.stackoverflowreader.model
 
+import android.os.Parcelable
+import com.google.gson.annotations.Expose
+import kotlinx.android.parcel.Parcelize
+
+// https://api.stackexchange.com/
+
+
+@Parcelize
 data class UserAccount(
 //    val badgeCounts: BadgeCounts = BadgeCounts(0, 0, 0),
-        val accountID: Long,
-        val userID: Long,
-        val displayName: String,
+        @Expose val accountId: String,
+        @Expose val userId: String,
+        @Expose val displayName: String,
 //    val isEmployee: Boolean = false,
 //    val lastModifiedDate: Long = 0L,
 //    val lastAccessDate: Long = 0L,
@@ -20,4 +28,4 @@ data class UserAccount(
 //    val websiteUrl: String = "",
 //    val link: String,
 //    val profileImage: String,
-)
+) : Parcelable
