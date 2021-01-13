@@ -1,11 +1,19 @@
 package com.amk.stackoverflowreader.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.mvp.presenter.MainPresenter
+import com.amk.stackoverflowreader.mvp.view.MainView
 import com.amk.stackoverflowreader.ui.fragments.userListFragment.UserListFragment
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : MvpAppCompatActivity(), MainView {
+
+    private val presenter by moxyPresenter {
+        MainPresenter(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

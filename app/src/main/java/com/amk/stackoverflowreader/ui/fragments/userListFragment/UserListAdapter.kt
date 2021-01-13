@@ -33,7 +33,7 @@ class UserListAdapter(private val userItemPresenter: UserItemPresenter) :
 
     override fun onBindViewHolder(holder: UserListHolder, position: Int) {
         holder.pos = position
-        holder.containerView.setOnClickListener { userItemPresenter.itemClickListener.invoke(holder) }
+        holder.containerView.setOnClickListener { userItemPresenter.itemClickListener?.invoke(holder) }
         userItemPresenter.bindView(holder)
     }
 
