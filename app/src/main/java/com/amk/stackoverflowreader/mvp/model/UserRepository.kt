@@ -2,7 +2,7 @@ package com.amk.stackoverflowreader.mvp.model
 
 class UserRepository {
 
-    private val userList = listOf<User>(
+    private val userList = listOf(
         User("user1"),
         User("user2"),
         User("user3"),

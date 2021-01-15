@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.stackoverflowreader.R
-import com.amk.stackoverflowreader.mvp.presenter.list.UserItemPresenter
-import com.amk.stackoverflowreader.mvp.view.list.UserItemView
+import com.amk.stackoverflowreader.mvp.presenter.listUser.ListUserItemPresenter
+import com.amk.stackoverflowreader.mvp.view.listUser.UserItemView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.view.*
 
-class UserListAdapter(private val userItemPresenter: UserItemPresenter) :
+class UserListAdapter(private val listUserItemPresenter: ListUserItemPresenter) :
     RecyclerView.Adapter<UserListAdapter.UserListHolder>() {
 
 
@@ -33,9 +33,13 @@ class UserListAdapter(private val userItemPresenter: UserItemPresenter) :
 
     override fun onBindViewHolder(holder: UserListHolder, position: Int) {
         holder.pos = position
-        holder.containerView.setOnClickListener { userItemPresenter.itemClickListener?.invoke(holder) }
-        userItemPresenter.bindView(holder)
+        holder.containerView.setOnClickListener {
+            listUserItemPresenter.itemClickListener.invoke(
+                holder
+            )
+        }
+        listUserItemPresenter.bindView(holder)
     }
 
-    override fun getItemCount(): Int = userItemPresenter.getCount()
+    override fun getItemCount(): Int = listUserItemPresenter.getCount()
 }
