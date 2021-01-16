@@ -1,10 +1,12 @@
 package com.amk.stackoverflowreader.mvp.presenter.listUser
 
+import android.util.Log
 import com.amk.stackoverflowreader.mvp.model.User
 import com.amk.stackoverflowreader.mvp.model.UserRepository
 import com.amk.stackoverflowreader.mvp.presenter.MainPresenter
 import com.amk.stackoverflowreader.mvp.view.UserListView
 import com.amk.stackoverflowreader.mvp.view.listUser.UserItemView
+import com.amk.stackoverflowreader.ui.activities.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
@@ -12,7 +14,6 @@ class UserListPresenter(private val router: Router) : MvpPresenter<UserListView>
 
     val listUserItemPresenterImpl = ListUserItemPresenterImpl()
 
-    private val userRepository = UserRepository()
     lateinit var mainPresenter: MainPresenter
 
     inner class ListUserItemPresenterImpl : ListUserItemPresenter {
@@ -20,7 +21,7 @@ class UserListPresenter(private val router: Router) : MvpPresenter<UserListView>
 
         override val itemClickListener: ((UserItemView) -> Unit)
             get() {
-                return { mainPresenter.startUserScreen(listUser[it.pos]) }
+                return { mainPresenter.startUserScreen(listUser[it.pos].id) }
             }
 
         override fun getCount() = listUser.size
@@ -37,8 +38,19 @@ class UserListPresenter(private val router: Router) : MvpPresenter<UserListView>
     }
 
     private fun loadData() {
-        listUserItemPresenterImpl.listUser.addAll(userRepository.getUsers())
-        viewState.updateData()
+        UserRepository
+            .getUsers()
+            .filter { it != null }
+            .subscribe({
+                listUserItemPresenterImpl.listUser.add(it)
+                viewState.updateData()
+            }, {
+                Log.d(TAG, it.toString())
+            }, {
+                if (listUserItemPresenterImpl.listUser.isEmpty()) {
+                    Log.d(TAG, "Not find user!")
+                }
+            })
     }
 
     fun pressedBackButton(): Boolean {

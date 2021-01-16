@@ -17,7 +17,7 @@ class UserPresenter(private val router: Router) : MvpPresenter<UserView>() {
     }
 
     private fun init() {
-        user = mainPresenter.selectedUser ?: User("not find user")
+        user = mainPresenter.selectedUser ?: User(-1, "not find user")
         setLogin()
     }
 
