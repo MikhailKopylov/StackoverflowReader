@@ -12,6 +12,8 @@ import io.reactivex.rxjava3.core.Observable
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 const val TAG = "!@#$ TAG"
 
@@ -33,6 +35,22 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 //        testFlatMap()
 
 
+        //Тестирование switchMap
+//        execFlatMap()
+
+    }
+
+    private fun execFlatMap() {
+        Observable.just("1", "2", "3", "3")
+            .switchMap {
+                val delay = Random.nextInt(1000).toLong()
+                return@switchMap Observable.just(it + "x").delay(delay, TimeUnit.MILLISECONDS)
+            }
+            .subscribe({ s ->
+                println("onNext: $s")
+            }, {
+                println("onError: ${it.message}")
+            })
     }
 
     private fun testFlatMap() {
