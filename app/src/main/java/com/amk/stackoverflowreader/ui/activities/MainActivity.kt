@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.core.Observable
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import java.util.concurrent.TimeUnit
 
 const val TAG = "!@#$ TAG"
 
@@ -30,7 +31,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
 
         //Тестирование flatMap
-//        testFlatMap()
+        testFlatMap()
 
 
     }
@@ -41,12 +42,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             try {
                 for (i in 0..10) {
                     emitter.onNext("onNext pos - $i = ${list[i]} ")
-                    Thread.sleep(100)
                     if (i == 5) {
                         list[1] = -1000 //Пока не закончился поток, изменения отображаются у подписчика
                         list[5] = 2000
                         emitter.onNext("onNext pos - 1 = ${list[1]} ")
                         emitter.onNext("onNext pos - 5 = ${list[5]} ")
+                        Thread.sleep(100)
                     }
                 }
                 emitter.onComplete()
@@ -58,7 +59,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
 
         observable
-            .flatMap { Observable.just(it) }
+            .switchMap { Observable.just(it).delay (200, TimeUnit.MILLISECONDS) }
             .subscribe({
                 Log.d(TAG, " $it")
             }, {
@@ -84,4 +85,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
         presenter.pressedBackButton()
     }
+
+    override fun getMainPresenter(): MainPresenter = presenter
 }
