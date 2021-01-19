@@ -1,15 +1,17 @@
 package com.amk.stackoverflowreader.mvp.model
 
-class UserRepository {
+import io.reactivex.rxjava3.core.Observable
+
+object UserRepository {
 
     private val userList = listOf(
-        User("user1"),
-        User("user2"),
-        User("user3"),
-        User("user4"),
-        User("user5"),
-        User("user6"),
+        User(1, "user1"),
+        User(2, "user2"),
+        User(3, "user3"),
+        User(4, "user4"),
+        User(5, "user5"),
+        User(6, "user6"),
     )
 
-    fun getUsers() = userList
+    fun getUsers(): Observable<User> = Observable.fromIterable(userList)
 }

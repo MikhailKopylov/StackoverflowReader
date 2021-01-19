@@ -26,8 +26,13 @@ class UserFragment : MvpAppCompatFragment(), UserView, BackButtonListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        presenter.mainPresenter = mainPresenter
         return inflater.inflate(R.layout.fragment_user, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        presenter.mainPresenter = mainPresenter
+
     }
 
     companion object {
