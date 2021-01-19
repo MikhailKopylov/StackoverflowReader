@@ -86,4 +86,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         presenter.pressedBackButton()
     }
 
+    override fun getMAinPresenter(): MainPresenter = presenter
+
 }
