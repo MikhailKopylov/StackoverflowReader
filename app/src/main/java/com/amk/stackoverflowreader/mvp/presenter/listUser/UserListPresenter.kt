@@ -1,10 +1,11 @@
 package com.amk.stackoverflowreader.mvp.presenter.listUser
 
 import android.util.Log
-import com.amk.stackoverflowreader.mvp.model.User
-import com.amk.stackoverflowreader.mvp.model.UserRepository
+import com.amk.stackoverflowreader.mvp.model.entity.User
+import com.amk.stackoverflowreader.mvp.model.repository.UserRepository
 import com.amk.stackoverflowreader.mvp.presenter.MainPresenter
-import com.amk.stackoverflowreader.mvp.view.UserListView
+import com.amk.stackoverflowreader.mvp.view.ItemView
+import com.amk.stackoverflowreader.mvp.view.listUser.UserListView
 import com.amk.stackoverflowreader.mvp.view.listUser.UserItemView
 import com.amk.stackoverflowreader.ui.activities.TAG
 import moxy.MvpPresenter
@@ -19,7 +20,7 @@ class UserListPresenter(private val router: Router) : MvpPresenter<UserListView>
     inner class ListUserItemPresenterImpl : ListUserItemPresenter {
         val listUser = mutableListOf<User>()
 
-        override val itemClickListener: ((UserItemView) -> Unit)
+        override val itemClickListener: ((ItemView) -> Unit)
             get() {
                 return { mainPresenter.startUserScreen(listUser[it.pos].id) }
             }

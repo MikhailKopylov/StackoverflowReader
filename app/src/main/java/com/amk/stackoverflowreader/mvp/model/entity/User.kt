@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.model
+package com.amk.stackoverflowreader.mvp.model.entity
 
 data class User(
     val id:Long,

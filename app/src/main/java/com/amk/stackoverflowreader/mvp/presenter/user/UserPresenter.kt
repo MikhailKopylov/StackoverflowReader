@@ -1,6 +1,6 @@
 package com.amk.stackoverflowreader.mvp.presenter.user
 
-import com.amk.stackoverflowreader.mvp.model.User
+import com.amk.stackoverflowreader.mvp.model.entity.User
 import com.amk.stackoverflowreader.mvp.presenter.MainPresenter
 import com.amk.stackoverflowreader.mvp.view.user.UserView
 import moxy.MvpPresenter

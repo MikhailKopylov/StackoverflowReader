@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.view
+package com.amk.stackoverflowreader.mvp.view.listUser
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
