@@ -20,8 +20,8 @@ class QuestionListAdapter(private val listQuestionItemPresenter: QuestionItemPre
 
         override var pos = -1
 
-        override fun setQuestionBody(questionBody: String) = with(containerView) {
-            tv_question_body.text = questionBody
+        override fun setQuestionBody(body: String) = with(containerView) {
+            tv_question_body.text = body
         }
     }
 

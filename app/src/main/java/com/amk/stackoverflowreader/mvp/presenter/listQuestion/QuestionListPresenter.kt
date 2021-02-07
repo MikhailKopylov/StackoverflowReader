@@ -46,11 +46,11 @@ class QuestionListPresenter(
     }
 
     fun searchQuestion(question: String) {
-        questionRepository.getQuestions(question)
+        questionRepository.getFindQuestions(question)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()
-                questionItemPresenterImpl.listQuestion.addAll(it)
+                questionItemPresenterImpl.listQuestion.addAll(it.items)
                 viewState.updateData()
             }, {
 

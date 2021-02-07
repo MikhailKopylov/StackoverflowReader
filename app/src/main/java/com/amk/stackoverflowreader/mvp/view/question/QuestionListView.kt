@@ -11,4 +11,5 @@ interface QuestionListView :MvpView{
     fun updateData()
     fun showClick(pos: Int)
 
+
 }

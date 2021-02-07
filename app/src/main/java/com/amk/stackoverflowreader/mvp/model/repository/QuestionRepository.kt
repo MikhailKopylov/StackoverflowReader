@@ -12,11 +12,11 @@ class QuestionRepository(
     private val api: IDataSource,
 ) : IQuestionRepo {
 
-    override fun getQuestions(query: String): Single<List<Question>> =
-        TODO("Not yet implemented")
+    override fun getFindQuestions(query: String): Single<ListQuestion> =
+        api.getFindQuestions(query).subscribeOn(Schedulers.io())
 
     override fun getQuestions(): Single<ListQuestion> =
-        api.getQuestions().subscribeOn(Schedulers.io())
+        api.getAllQuestions().subscribeOn(Schedulers.io())
 
 
 

@@ -8,6 +8,6 @@ import io.reactivex.rxjava3.core.Single
 
 interface IQuestionRepo {
 
-    fun getQuestions(query:String): Single<List<Question>>
+    fun getFindQuestions(query:String): Single<ListQuestion>
     fun getQuestions(): Single<ListQuestion>
 }
