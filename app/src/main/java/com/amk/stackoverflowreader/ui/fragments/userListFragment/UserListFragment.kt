@@ -22,7 +22,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackButtonListene
         UserListPresenter(App.instance.router)
     }
 
-    private lateinit var mainPresenter:MainPresenter
+    private lateinit var mainPresenter: MainPresenter
 
     private lateinit var adapter: UserListAdapter
 
@@ -36,12 +36,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackButtonListene
 
     companion object {
         @JvmStatic
-        fun newInstance(mainPresenter: MainPresenter) : UserListFragment{
-            val fragment = UserListFragment()
-            fragment.mainPresenter = mainPresenter
-            return fragment
-        }
-
+        fun newInstance() = UserListFragment()
     }
 
     override fun init() {
@@ -56,7 +51,7 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackButtonListene
         adapter.notifyDataSetChanged()
     }
 
-    override fun showClick(pos:Int) {
+    override fun showClick(pos: Int) {
         Toast.makeText(context, "Press $pos", Toast.LENGTH_SHORT).show()
     }
 

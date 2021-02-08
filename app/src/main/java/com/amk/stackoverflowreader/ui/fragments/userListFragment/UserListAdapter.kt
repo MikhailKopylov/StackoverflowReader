@@ -17,7 +17,6 @@ class UserListAdapter(private val listUserItemPresenter: ListUserItemPresenter) 
     inner class UserListHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView),
         LayoutContainer, UserItemView {
-
         override var pos = -1
 
         override fun setUserLogin(login: String) = with(containerView) {
@@ -34,7 +33,7 @@ class UserListAdapter(private val listUserItemPresenter: ListUserItemPresenter) 
     override fun onBindViewHolder(holder: UserListHolder, position: Int) {
         holder.pos = position
         holder.containerView.setOnClickListener {
-            listUserItemPresenter.itemClickListener.invoke(
+            listUserItemPresenter.itemClickListener?.invoke(
                 holder
             )
         }

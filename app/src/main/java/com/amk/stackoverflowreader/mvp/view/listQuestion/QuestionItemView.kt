@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.view.question
+package com.amk.stackoverflowreader.mvp.view.listQuestion
 
 import com.amk.stackoverflowreader.mvp.view.ItemView
 

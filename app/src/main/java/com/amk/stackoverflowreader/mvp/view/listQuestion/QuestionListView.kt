@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.view.question
+package com.amk.stackoverflowreader.mvp.view.listQuestion
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
@@ -10,6 +10,4 @@ interface QuestionListView :MvpView{
     fun init()
     fun updateData()
     fun showClick(pos: Int)
-
-
 }

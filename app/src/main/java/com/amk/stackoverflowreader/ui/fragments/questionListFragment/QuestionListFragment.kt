@@ -9,13 +9,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
-import com.amk.stackoverflowreader.mvp.presenter.MainPresenter
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionListPresenter
-import com.amk.stackoverflowreader.mvp.view.question.QuestionListView
+import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
 import com.amk.stackoverflowreader.ui.BackButtonListener
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_question_list.*
-import kotlinx.android.synthetic.main.fragment_user_list.user_list_recycler_view
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -24,8 +22,6 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
     private val presenter by moxyPresenter {
         QuestionListPresenter(AndroidSchedulers.mainThread(), App.instance.router)
     }
-
-    private lateinit var mainPresenter: MainPresenter
 
     private lateinit var adapter: QuestionListAdapter
 
@@ -39,20 +35,14 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
 
     companion object {
         @JvmStatic
-        fun newInstance(mainPresenter: MainPresenter): QuestionListFragment {
-            val fragment = QuestionListFragment()
-            fragment.mainPresenter = mainPresenter
-            return fragment
-        }
-
+        fun newInstance() = QuestionListFragment()
     }
 
     override fun init() {
-        presenter.mainPresenter = mainPresenter
-
-        user_list_recycler_view.layoutManager = LinearLayoutManager(context)
+        question_list_recycler_view.layoutManager = LinearLayoutManager(context)
         adapter = QuestionListAdapter(presenter.questionItemPresenterImpl)
-        user_list_recycler_view.adapter = adapter
+        question_list_recycler_view.adapter = adapter
+
         search_question.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 presenter.searchQuestion(search_question.query.toString())
@@ -60,10 +50,8 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-//                TODO("Not yet implemented")
                 return false
             }
-
         })
     }
 
@@ -72,6 +60,7 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
     }
 
     override fun showClick(pos: Int) {
+
         Toast.makeText(context, "Press $pos", Toast.LENGTH_SHORT).show()
     }
 

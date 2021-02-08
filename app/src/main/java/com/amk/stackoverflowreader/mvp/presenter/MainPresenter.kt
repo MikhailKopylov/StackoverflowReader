@@ -11,11 +11,10 @@ import ru.terrakok.cicerone.Router
 
 class MainPresenter(private val router: Router) : MvpPresenter<MainView>() {
 
-
     var selectedUser: User? = null
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(Screens.QuestionScreen(this))
+        router.replaceScreen(Screens.QuestionScreen())
     }
 
     fun pressedBackButton() {
@@ -29,7 +28,7 @@ class MainPresenter(private val router: Router) : MvpPresenter<MainView>() {
             .take(1)
             .subscribe({
                 selectedUser = it
-                router.navigateTo(Screens.UserScreen(this))
+                router.navigateTo(Screens.UserScreen(it))
             }, {
                 Log.d(TAG, it.toString())
             })

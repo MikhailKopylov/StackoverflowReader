@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.stackoverflowreader.R
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionItemPresenter
-import com.amk.stackoverflowreader.mvp.view.question.QuestionItemView
+import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionItemView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_question.view.*
 
@@ -34,7 +34,7 @@ class QuestionListAdapter(private val listQuestionItemPresenter: QuestionItemPre
     override fun onBindViewHolder(holder: QuestionListHolder, position: Int) {
         holder.pos = position
         holder.containerView.setOnClickListener {
-            listQuestionItemPresenter.itemClickListener.invoke(
+            listQuestionItemPresenter.itemClickListener?.invoke(
                 holder
             )
         }

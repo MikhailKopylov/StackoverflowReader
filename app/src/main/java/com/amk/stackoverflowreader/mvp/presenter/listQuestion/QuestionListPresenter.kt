@@ -2,12 +2,12 @@ package com.amk.stackoverflowreader.mvp.presenter.listQuestion
 
 import android.util.Log
 import com.amk.stackoverflowreader.mvp.model.api.ApiHolder
-import com.amk.stackoverflowreader.mvp.model.entity.Question
+import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.model.repository.QuestionRepository
-import com.amk.stackoverflowreader.mvp.presenter.MainPresenter
 import com.amk.stackoverflowreader.mvp.view.ItemView
-import com.amk.stackoverflowreader.mvp.view.question.QuestionItemView
-import com.amk.stackoverflowreader.mvp.view.question.QuestionListView
+import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionItemView
+import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
+import com.amk.stackoverflowreader.navigation.Screens
 import com.amk.stackoverflowreader.ui.activities.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
@@ -18,22 +18,21 @@ class QuestionListPresenter(
     private val router: Router
 ) : MvpPresenter<QuestionListView>() {
 
-    lateinit var mainPresenter: MainPresenter
     private val questionRepository = QuestionRepository(ApiHolder().api)
     val questionItemPresenterImpl = QuestionItemPresenterImpl()
 
 
-    inner class QuestionItemPresenterImpl:QuestionItemPresenter{
+    inner class QuestionItemPresenterImpl : QuestionItemPresenter {
         val listQuestion = mutableListOf<Question>()
-        override val itemClickListener: ((ItemView) -> Unit)
-            get() {
-                return {viewState.showClick(it.pos)}
-            }
+        override var itemClickListener: ((ItemView) -> Unit)? = null
+//            get() {
+//                return { viewState.showClick(it.pos) }
+//            }
 
         override fun getCount() = listQuestion.size
 
         override fun bindView(view: QuestionItemView) {
-           view.setQuestionBody(listQuestion[view.pos].title)
+            view.setQuestionBody(listQuestion[view.pos].title)
         }
 
     }
@@ -42,6 +41,11 @@ class QuestionListPresenter(
         super.onFirstViewAttach()
         viewState.init()
         searchQuestion()
+
+        questionItemPresenterImpl.itemClickListener = {itemView ->
+            val question = questionItemPresenterImpl.listQuestion[itemView.pos]
+            router.navigateTo(Screens.ListAnswerScreen(question))
+        }
 //        loadData()
     }
 

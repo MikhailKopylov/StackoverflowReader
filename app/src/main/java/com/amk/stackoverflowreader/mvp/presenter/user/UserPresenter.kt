@@ -6,10 +6,7 @@ import com.amk.stackoverflowreader.mvp.view.user.UserView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class UserPresenter(private val router: Router) : MvpPresenter<UserView>() {
-
-    lateinit var mainPresenter: MainPresenter
-    private lateinit var user: User
+class UserPresenter(private val user: User, private val router: Router) : MvpPresenter<UserView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -17,7 +14,6 @@ class UserPresenter(private val router: Router) : MvpPresenter<UserView>() {
     }
 
     private fun init() {
-        user = mainPresenter.selectedUser ?: User(-1, "not find user")
         setLogin()
     }
 
