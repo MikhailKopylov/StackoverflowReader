@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.mvp.model.entity.contexImplementation.GlideImageLoader
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionListPresenter
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
 import com.amk.stackoverflowreader.ui.BackButtonListener
@@ -40,7 +41,7 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
 
     override fun init() {
         question_list_recycler_view.layoutManager = LinearLayoutManager(context)
-        adapter = QuestionListAdapter(presenter.questionItemPresenterImpl)
+        adapter = QuestionListAdapter(presenter.questionItemPresenterImpl, GlideImageLoader())
         question_list_recycler_view.adapter = adapter
 
         search_question.setOnQueryTextListener(object : OnQueryTextListener {

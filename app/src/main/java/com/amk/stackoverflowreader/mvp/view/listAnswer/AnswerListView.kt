@@ -10,6 +10,7 @@ interface AnswerListView : MvpView {
     fun init()
     fun updateData()
     fun showClick(pos: Int)
+    fun showQuestion(questionId: Long)
 
     fun setQuotaRemaining(quotaRemaining: Int)
     fun setHasMore(hasMore: Boolean)

@@ -5,4 +5,6 @@ import com.amk.stackoverflowreader.mvp.view.ItemView
 
 interface QuestionItemView : ItemView {
     fun setQuestionBody(body: String)
+    fun loadAvatar(url: String)
+
 }

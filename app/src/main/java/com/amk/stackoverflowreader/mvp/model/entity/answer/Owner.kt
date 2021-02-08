@@ -10,7 +10,7 @@ class Owner(
     @Expose private val userId: Long,
     @Expose private val userType: String,
     @Expose private val acceptRate: Int,
-    @Expose private val profileImage: String,
+    @Expose val profileImage: String,
     @Expose val displayName: String,
     @Expose private val link: String,
 ) : Parcelable

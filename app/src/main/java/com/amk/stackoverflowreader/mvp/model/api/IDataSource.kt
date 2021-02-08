@@ -14,6 +14,7 @@ interface IDataSource {
     @GET("/2.2/search/excerpts?order=desc&sort=relevance&site=stackoverflow")
     fun getFindQuestions(@Query("q") querySearch: String): Single<RequestQuestion>
 
-    @GET("/2.2/questions/{questionId}/answers?order=desc&sort=activity&site=stackoverflow")
+    //    @GET("/2.2/questions/{questionId}/answers?order=desc&sort=activity&site=stackoverflow")
+    @GET("/2.2/questions/{questionId}/answers?order=desc&sort=votes&site=stackoverflow")//Сортировка по числу голосов
     fun getAnswers(@Path("questionId") questionId: Long): Single<RequestAnswer>
 }

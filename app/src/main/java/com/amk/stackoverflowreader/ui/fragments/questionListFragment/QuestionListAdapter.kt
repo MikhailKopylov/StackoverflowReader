@@ -3,14 +3,19 @@ package com.amk.stackoverflowreader.ui.fragments.questionListFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.mvp.model.entity.image.IImageLoader
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionItemPresenter
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionItemView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_question.view.*
 
-class QuestionListAdapter(private val listQuestionItemPresenter: QuestionItemPresenter) :
+class QuestionListAdapter(
+    private val listQuestionItemPresenter: QuestionItemPresenter,
+    val imageLoader: IImageLoader<ImageView>
+) :
     RecyclerView.Adapter<QuestionListAdapter.QuestionListHolder>() {
 
 
@@ -22,6 +27,10 @@ class QuestionListAdapter(private val listQuestionItemPresenter: QuestionItemPre
 
         override fun setQuestionBody(body: String) = with(containerView) {
             tv_question_body.text = body
+        }
+
+        override fun loadAvatar(url: String) = with(containerView) {
+            imageLoader.loadInto(url, iv_avatar_owner_question)
         }
     }
 

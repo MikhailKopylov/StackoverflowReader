@@ -40,6 +40,7 @@ class AnswerListPresenter(
                 view.setIsAccepted(isAccepted)
                 view.setScore(score)
                 view.setQuestionId(questionId)
+                view.loadAvatar(owner.profileImage)
             }
         }
     }
@@ -59,9 +60,13 @@ class AnswerListPresenter(
             .observeOn(mainThreadScheduler)
             .subscribe({
                 answerItemPresenterImpl.listAnswer.clear()
-                answerItemPresenterImpl.listAnswer.addAll(it.items)
+                //TODO this is a temporary solution until the issue of displaying the question body is resolved!!!
+                if (it.items.isNotEmpty()) {
+                    answerItemPresenterImpl.listAnswer.add(it.items[0])
+                }
                 viewState.setHasMore(it.hasMore)
                 viewState.setQuotaRemaining(it.quotaRemaining)
+                viewState.showQuestion(it.items[0].questionId)
                 viewState.updateData()
             }, {
                 Log.e(TAG, it.message.toString())

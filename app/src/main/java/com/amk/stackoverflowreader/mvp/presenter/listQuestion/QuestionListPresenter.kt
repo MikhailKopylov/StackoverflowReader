@@ -25,14 +25,12 @@ class QuestionListPresenter(
     inner class QuestionItemPresenterImpl : QuestionItemPresenter {
         val listQuestion = mutableListOf<Question>()
         override var itemClickListener: ((ItemView) -> Unit)? = null
-//            get() {
-//                return { viewState.showClick(it.pos) }
-//            }
 
         override fun getCount() = listQuestion.size
 
         override fun bindView(view: QuestionItemView) {
             view.setQuestionBody(listQuestion[view.pos].title)
+            view.loadAvatar(listQuestion[view.pos].owner.profileImage)
         }
 
     }
@@ -42,7 +40,7 @@ class QuestionListPresenter(
         viewState.init()
         searchQuestion()
 
-        questionItemPresenterImpl.itemClickListener = {itemView ->
+        questionItemPresenterImpl.itemClickListener = { itemView ->
             val question = questionItemPresenterImpl.listQuestion[itemView.pos]
             router.navigateTo(Screens.ListAnswerScreen(question))
         }

@@ -4,14 +4,19 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.mvp.model.entity.image.IImageLoader
 import com.amk.stackoverflowreader.mvp.presenter.listAnswer.IAnswerItemPresenter
 import com.amk.stackoverflowreader.mvp.view.listAnswer.AnswerItemView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_answer.view.*
 
-class AnswerListAdapter(private val answerItemPresenter: IAnswerItemPresenter) :
+class AnswerListAdapter(
+    private val answerItemPresenter: IAnswerItemPresenter,
+    val imageLoader: IImageLoader<ImageView>
+) :
     RecyclerView.Adapter<AnswerListAdapter.AnswerListHolder>() {
 
 
@@ -47,6 +52,10 @@ class AnswerListAdapter(private val answerItemPresenter: IAnswerItemPresenter) :
         @SuppressLint("SetTextI18n")
         override fun setOwnerName(displayName: String) = with(containerView) {
             tv_owner_name.text = "displayName $displayName"
+        }
+
+        override fun loadAvatar(url: String) = with(containerView) {
+            imageLoader.loadInto(url, iv_avatar_owner_answer)
         }
 
         override var pos = -1

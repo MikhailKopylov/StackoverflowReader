@@ -10,6 +10,7 @@ interface AnswerItemView : ItemView {
     fun setQuestionId(questionId: Long)
     fun setContentLicense(contentLicense: String)
     fun setOwnerName(displayName: String)
+    fun loadAvatar(url: String)
 
 
 }

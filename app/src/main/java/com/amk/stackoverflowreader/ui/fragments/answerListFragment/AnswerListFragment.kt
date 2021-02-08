@@ -9,14 +9,17 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.mvp.model.entity.contexImplementation.GlideImageLoader
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.presenter.listAnswer.AnswerListPresenter
 import com.amk.stackoverflowreader.mvp.view.listAnswer.AnswerListView
 import com.amk.stackoverflowreader.ui.BackButtonListener
+import com.amk.stackoverflowreader.ui.MyWebViewClient
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_answer_list.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+
 
 class AnswerListFragment : MvpAppCompatFragment(), AnswerListView, BackButtonListener {
 
@@ -50,7 +53,7 @@ class AnswerListFragment : MvpAppCompatFragment(), AnswerListView, BackButtonLis
     override fun init() {
 
         answer_list_recycler_view.layoutManager = LinearLayoutManager(context)
-        adapter = AnswerListAdapter(presenter.answerItemPresenterImpl)
+        adapter = AnswerListAdapter(presenter.answerItemPresenterImpl, GlideImageLoader())
         answer_list_recycler_view.adapter = adapter
 
     }
@@ -61,6 +64,16 @@ class AnswerListFragment : MvpAppCompatFragment(), AnswerListView, BackButtonLis
 
     override fun showClick(pos: Int) {
         Toast.makeText(context, "Press $pos", Toast.LENGTH_SHORT).show()
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun showQuestion(questionId: Long) {
+        val query = "https://stackoverflow.com/q/$questionId"
+        with(wv_question) {
+            settings.javaScriptEnabled = true
+            webViewClient = MyWebViewClient()
+            loadUrl(query)
+        }
     }
 
     @SuppressLint("SetTextI18n")
