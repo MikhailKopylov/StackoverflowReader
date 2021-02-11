@@ -10,6 +10,7 @@ class QuestionRepository(
     private val api: IDataSource,
 ) : IQuestionRepo {
 
+
     override fun getFindQuestions(query: String): Single<RequestQuestion> =
         api.getFindQuestions(query).subscribeOn(Schedulers.io())
 

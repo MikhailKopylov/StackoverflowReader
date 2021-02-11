@@ -4,6 +4,7 @@ import android.util.Log
 import com.amk.stackoverflowreader.mvp.model.api.ApiHolder
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.model.repository.QuestionRepository
+import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IQuestionRepo
 import com.amk.stackoverflowreader.mvp.view.ItemView
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionItemView
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
@@ -12,13 +13,18 @@ import com.amk.stackoverflowreader.ui.activities.TAG
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
 class QuestionListPresenter(
     private val mainThreadScheduler: Scheduler,
-    private val router: Router
 ) : MvpPresenter<QuestionListView>() {
 
-    private val questionRepository = QuestionRepository(ApiHolder().api)
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var questionRepository:IQuestionRepo
+
     val questionItemPresenterImpl = QuestionItemPresenterImpl()
 
 

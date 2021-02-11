@@ -1,17 +1,16 @@
 package com.amk.stackoverflowreader.mvp.presenter
 
-import android.util.Log
-import com.amk.stackoverflowreader.mvp.model.entity.User
-import com.amk.stackoverflowreader.mvp.model.repository.UserRepository
 import com.amk.stackoverflowreader.mvp.view.MainView
 import com.amk.stackoverflowreader.navigation.Screens
-import com.amk.stackoverflowreader.ui.activities.TAG
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class MainPresenter(private val router: Router) : MvpPresenter<MainView>() {
+class MainPresenter() : MvpPresenter<MainView>() {
 
-    var selectedUser: User? = null
+    @Inject
+    lateinit var router: Router
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         router.replaceScreen(Screens.QuestionScreen())
@@ -21,16 +20,4 @@ class MainPresenter(private val router: Router) : MvpPresenter<MainView>() {
         router.exit()
     }
 
-    fun startUserScreen(id: Long) {
-        UserRepository
-            .getUsers()
-            .filter { it.id == id }
-            .take(1)
-            .subscribe({
-                selectedUser = it
-                router.navigateTo(Screens.UserScreen(it))
-            }, {
-                Log.d(TAG, it.toString())
-            })
-    }
 }

@@ -10,20 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiHolder {
 
-//    val dataSource by lazy {
-//        val logging = HttpLoggingInterceptor()
-//        logging.setLevel(Level.BASIC) //можно также заменить на Level.BODY чтоб увидеть полное тело запроса и ответа
-//
-//        val client = OkHttpClient.Builder()
-//            .addInterceptor(logging)
-//            .build()
-//        val interceptor = HttpLoggingInterceptor()
-//        interceptor.level = HttpLoggingInterceptor.Level.BODY
-//        val client = OkHttpClient.Builder()
-//            .addInterceptor(interceptor).build()
-//
-
-
         val api: IDataSource by lazy {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -43,21 +29,4 @@ class ApiHolder {
                 .build()
                 .create(IDataSource::class.java)
         }
-//
-//        val gson = GsonBuilder()
-//            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-//            .excludeFieldsWithoutExposeAnnotation()
-//            .create()
-//
-//        val retrofit = Retrofit.Builder()
-////            .client(client)
-//            .baseUrl("https://api.stackexchange.com")
-//            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//
-//            .build()
-//
-//
-//        retrofit.create(DataSource::class.java)
-//    }
 }

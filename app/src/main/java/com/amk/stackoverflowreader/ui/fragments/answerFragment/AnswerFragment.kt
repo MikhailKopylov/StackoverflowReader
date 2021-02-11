@@ -22,7 +22,9 @@ class AnswerFragment : MvpAppCompatFragment(), AnswerView, BackButtonListener {
 
     private val presenter by moxyPresenter {
         val question = arguments?.getParcelable<Question>(ANSWER_ARG) as Question
-        AnswerPresenter(question, AndroidSchedulers.mainThread(), App.instance.router)
+        AnswerPresenter(question, AndroidSchedulers.mainThread()).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     override fun onCreateView(

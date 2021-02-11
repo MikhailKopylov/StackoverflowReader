@@ -21,7 +21,9 @@ import moxy.ktx.moxyPresenter
 class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButtonListener {
 
     private val presenter by moxyPresenter {
-        QuestionListPresenter(AndroidSchedulers.mainThread(), App.instance.router)
+        QuestionListPresenter(AndroidSchedulers.mainThread()).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private lateinit var adapter: QuestionListAdapter
