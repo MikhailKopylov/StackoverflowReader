@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.di.modules
+package com.amk.stackoverflowreader.di.modules
 
 import com.amk.stackoverflowreader.App
 import dagger.Module
@@ -8,7 +8,7 @@ import dagger.Provides
 class AppModule(private val app: App) {
 
     @Provides
-    fun app(): App{
+    fun app(): App {
         return app
     }
 }

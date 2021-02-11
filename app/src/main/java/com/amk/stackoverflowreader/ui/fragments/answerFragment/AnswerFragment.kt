@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.di.answer.AnswerSubcomponent
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.presenter.answer.AnswerPresenter
 import com.amk.stackoverflowreader.mvp.view.answer.AnswerView
@@ -20,10 +21,12 @@ import moxy.ktx.moxyPresenter
 
 class AnswerFragment : MvpAppCompatFragment(), AnswerView, BackButtonListener {
 
+    private var answerSubcomponent: AnswerSubcomponent? = null
     private val presenter by moxyPresenter {
+        answerSubcomponent = App.instance.initAnswerSubcomponent()
         val question = arguments?.getParcelable<Question>(ANSWER_ARG) as Question
         AnswerPresenter(question, AndroidSchedulers.mainThread()).apply {
-            App.instance.appComponent.inject(this)
+            answerSubcomponent?.inject(this)
         }
     }
 
@@ -65,6 +68,11 @@ class AnswerFragment : MvpAppCompatFragment(), AnswerView, BackButtonListener {
     @SuppressLint("SetTextI18n")
     override fun setHasMore(hasMore: Boolean) {
         tv_has_more.text = "Has more: $hasMore"
+    }
+
+    override fun release() {
+        answerSubcomponent = null
+        App.instance.releaseAnswerSubcomponent()
     }
 
     override fun pressedBackButton() = presenter.pressedBackButton()

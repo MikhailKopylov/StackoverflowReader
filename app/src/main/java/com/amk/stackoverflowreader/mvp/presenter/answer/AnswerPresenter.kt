@@ -1,9 +1,7 @@
 package com.amk.stackoverflowreader.mvp.presenter.answer
 
 import android.util.Log
-import com.amk.stackoverflowreader.mvp.model.api.ApiHolder
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
-import com.amk.stackoverflowreader.mvp.model.repository.AnswerRepository
 import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IAnswerRepo
 import com.amk.stackoverflowreader.mvp.view.answer.AnswerView
 import com.amk.stackoverflowreader.ui.activities.TAG
@@ -21,7 +19,7 @@ class AnswerPresenter(
     lateinit var router: Router
 
     @Inject
-    lateinit var answerRepository:IAnswerRepo
+    lateinit var answerRepository: IAnswerRepo
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -47,4 +45,8 @@ class AnswerPresenter(
         return true
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewState.release()
+    }
 }

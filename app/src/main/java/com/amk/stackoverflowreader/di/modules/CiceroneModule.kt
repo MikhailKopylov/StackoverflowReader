@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.di.modules
+package com.amk.stackoverflowreader.di.modules
 
 import dagger.Module
 import dagger.Provides
@@ -18,5 +18,5 @@ class CiceroneModule {
 
     @Singleton
     @Provides
-    fun router():Router = cicerone.router
+    fun router(): Router = cicerone.router
 }

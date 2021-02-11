@@ -1,4 +1,4 @@
-package com.amk.stackoverflowreader.mvp.di.modules
+package com.amk.stackoverflowreader.di.modules
 
 import com.amk.stackoverflowreader.mvp.model.api.IDataSource
 import com.google.gson.FieldNamingPolicy

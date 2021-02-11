@@ -1,9 +1,7 @@
 package com.amk.stackoverflowreader.mvp.presenter.listQuestion
 
 import android.util.Log
-import com.amk.stackoverflowreader.mvp.model.api.ApiHolder
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
-import com.amk.stackoverflowreader.mvp.model.repository.QuestionRepository
 import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IQuestionRepo
 import com.amk.stackoverflowreader.mvp.view.ItemView
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionItemView
@@ -23,7 +21,7 @@ class QuestionListPresenter(
     lateinit var router: Router
 
     @Inject
-    lateinit var questionRepository:IQuestionRepo
+    lateinit var questionRepository: IQuestionRepo
 
     val questionItemPresenterImpl = QuestionItemPresenterImpl()
 
@@ -83,4 +81,8 @@ class QuestionListPresenter(
         return true
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewState.release()
+    }
 }

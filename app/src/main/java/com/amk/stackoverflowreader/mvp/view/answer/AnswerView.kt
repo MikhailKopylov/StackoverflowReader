@@ -12,4 +12,6 @@ interface AnswerView : MvpView {
     fun setQuotaRemaining(quotaRemaining: Int)
     fun setHasMore(hasMore: Boolean)
 
+    fun release()
+
 }

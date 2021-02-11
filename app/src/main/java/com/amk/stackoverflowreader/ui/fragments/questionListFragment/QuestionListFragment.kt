@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
+import com.amk.stackoverflowreader.di.question.QuestionSubcomponent
 import com.amk.stackoverflowreader.mvp.model.entity.contexImplementation.GlideImageLoader
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionListPresenter
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
@@ -20,9 +21,12 @@ import moxy.ktx.moxyPresenter
 
 class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButtonListener {
 
+    private var questionSubcomponent: QuestionSubcomponent? = null
+
     private val presenter by moxyPresenter {
+        questionSubcomponent = App.instance.initQuestionSubcomponent()
         QuestionListPresenter(AndroidSchedulers.mainThread()).apply {
-            App.instance.appComponent.inject(this)
+            questionSubcomponent?.inject(this)
         }
     }
 
@@ -65,6 +69,11 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
     override fun showClick(pos: Int) {
 
         Toast.makeText(context, "Press $pos", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun release() {
+        questionSubcomponent = null
+        App.instance.releaseQuestionSubcomponent()
     }
 
     override fun pressedBackButton() = presenter.pressedBackButton()
