@@ -9,5 +9,6 @@ import kotlinx.android.parcel.Parcelize
 class Question(
     @Expose val title: String,
     @Expose val questionId: Long,
+    @Expose val isAnswered: Boolean,
     @Expose val owner: Owner,
 ) : Parcelable
