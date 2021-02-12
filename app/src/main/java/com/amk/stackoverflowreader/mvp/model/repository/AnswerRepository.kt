@@ -11,5 +11,5 @@ class AnswerRepository(
 ) : IAnswerRepo {
 
     override fun getAnswers(questionId: Long): Single<RequestAnswer> =
-        api.getAnswers(questionId).subscribeOn(Schedulers.io())
+        api.getAnswersSortVotes(questionId).subscribeOn(Schedulers.io())
 }

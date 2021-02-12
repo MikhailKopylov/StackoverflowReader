@@ -1,5 +1,6 @@
 package com.amk.stackoverflowreader.ui.fragments.questionListFragment
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,10 +28,26 @@ class QuestionListAdapter(
 
         override fun setQuestionBody(body: String) = with(containerView) {
             tv_question_body.text = body
+
         }
 
         override fun loadAvatar(url: String) = with(containerView) {
             imageLoader.loadInto(url, iv_avatar_owner_question)
+        }
+
+        @SuppressLint("SetTextI18n")
+        override fun setVotesCount(votes: Int) {
+            containerView.tv_votes.text = "Votes: $votes"
+        }
+
+        @SuppressLint("SetTextI18n")
+        override fun setAnswersCount(answers: Int) {
+            containerView.tv_answers.text = "Answers: $answers"
+        }
+
+        @SuppressLint("SetTextI18n")
+        override fun setViewsCount(views: Int) {
+            containerView.tv_views.text = "Views: $views"
         }
     }
 

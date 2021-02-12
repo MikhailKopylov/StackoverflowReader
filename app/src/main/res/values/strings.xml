@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="user_login">User login</string>
     <string name="change_user_login">change user login</string>
+    <string name="search">Search…</string>
+    <string name="top_questions">Questions</string>
+    <string name="sorted_by">Sorted by</string>
 </resources>

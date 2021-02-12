@@ -11,4 +11,7 @@ class Question(
     @Expose val questionId: Long,
     @Expose val isAnswered: Boolean,
     @Expose val owner: Owner,
+    @Expose val viewCount: Int,
+    @Expose val answerCount: Int,
+    @Expose val score: Int,
 ) : Parcelable

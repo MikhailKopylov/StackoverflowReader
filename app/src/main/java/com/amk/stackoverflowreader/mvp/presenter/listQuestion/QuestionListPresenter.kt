@@ -1,6 +1,7 @@
 package com.amk.stackoverflowreader.mvp.presenter.listQuestion
 
 import android.util.Log
+import com.amk.stackoverflowreader.mvp.model.api.SortedBy
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IQuestionRepo
 import com.amk.stackoverflowreader.mvp.view.ItemView
@@ -33,8 +34,13 @@ class QuestionListPresenter(
         override fun getCount() = listQuestion.size
 
         override fun bindView(view: QuestionItemView) {
-            view.setQuestionBody(listQuestion[view.pos].title)
-            view.loadAvatar(listQuestion[view.pos].owner.profileImage)
+            with(listQuestion[view.pos]) {
+                view.setQuestionBody(title)
+                owner.profileImage?.let { view.loadAvatar(it) }
+                view.setAnswersCount(answerCount)
+                view.setViewsCount(viewCount)
+                view.setVotesCount(votes = score)
+            }
         }
 
     }
@@ -42,7 +48,7 @@ class QuestionListPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-        searchQuestion()
+        searchQuestion(SortedBy.Activity)
 
         questionItemPresenterImpl.itemClickListener = { itemView ->
             val question = questionItemPresenterImpl.listQuestion[itemView.pos]
@@ -51,8 +57,8 @@ class QuestionListPresenter(
 //        loadData()
     }
 
-    fun searchQuestion(question: String) {
-        questionRepository.getFindQuestions(question)
+    fun searchQuestion(question: String, sortBy: SortedBy) {
+        questionRepository.getFindQuestions(question, sortBy)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()
@@ -64,8 +70,8 @@ class QuestionListPresenter(
     }
 
 
-    private fun searchQuestion() {
-        questionRepository.getQuestions()
+    fun searchQuestion(sortBy: SortedBy) {
+        questionRepository.getQuestions(sortBy)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()
