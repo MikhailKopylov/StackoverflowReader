@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
 import com.amk.stackoverflowreader.di.question.QuestionSubcomponent
+import com.amk.stackoverflowreader.mvp.model.api.OrderBy
 import com.amk.stackoverflowreader.mvp.model.api.SortedBy
 import com.amk.stackoverflowreader.mvp.model.entity.contexImplementation.GlideImageLoader
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionListPresenter
@@ -26,6 +27,7 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
 
     private var questionSubcomponent: QuestionSubcomponent? = null
     private var sorted: SortedBy = SortedBy.Activity
+    private var order:OrderBy = OrderBy.Desc
 
     private val presenter by moxyPresenter {
         questionSubcomponent = App.instance.initQuestionSubcomponent()
@@ -56,7 +58,7 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
 
         search_question.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                presenter.searchQuestion(search_question.query.toString(), sorted)
+                presenter.searchQuestion(search_question.query.toString(), sorted, order)
                 return false
             }
 
@@ -84,9 +86,9 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
                 ) {
                     sorted = SortedBy.values()[position]
                     if (search_question.query.isEmpty()) {
-                        presenter.searchQuestion(sorted)
+                        presenter.searchQuestion(sorted, order)
                     } else {
-                        presenter.searchQuestion(search_question.query.toString(), sorted)
+                        presenter.searchQuestion(search_question.query.toString(), sorted, order)
                     }
                 }
 

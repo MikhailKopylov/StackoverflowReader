@@ -36,16 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_question" />
 
-    <TextView
-        android:id="@+id/tv_top_questions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/top_questions"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_sorted" />
+
 
     <TextView
         android:id="@+id/textView2"
@@ -72,7 +63,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/tv_top_questions" />
+        app:layout_constraintTop_toBottomOf="@+id/search_question" />
 
     <ScrollView
         android:id="@+id/scroll_view"

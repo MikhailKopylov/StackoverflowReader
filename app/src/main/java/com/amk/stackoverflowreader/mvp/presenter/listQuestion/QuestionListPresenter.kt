@@ -1,6 +1,7 @@
 package com.amk.stackoverflowreader.mvp.presenter.listQuestion
 
 import android.util.Log
+import com.amk.stackoverflowreader.mvp.model.api.OrderBy
 import com.amk.stackoverflowreader.mvp.model.api.SortedBy
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IQuestionRepo
@@ -48,7 +49,7 @@ class QuestionListPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-        searchQuestion(SortedBy.Activity)
+        searchQuestion(SortedBy.Activity, OrderBy.Desc)
 
         questionItemPresenterImpl.itemClickListener = { itemView ->
             val question = questionItemPresenterImpl.listQuestion[itemView.pos]
@@ -57,8 +58,8 @@ class QuestionListPresenter(
 //        loadData()
     }
 
-    fun searchQuestion(question: String, sortBy: SortedBy) {
-        questionRepository.getFindQuestions(question, sortBy)
+    fun searchQuestion(question: String, sortBy: SortedBy, orderBy: OrderBy) {
+        questionRepository.getFindQuestions(question, sortBy, orderBy)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()
@@ -70,8 +71,8 @@ class QuestionListPresenter(
     }
 
 
-    fun searchQuestion(sortBy: SortedBy) {
-        questionRepository.getQuestions(sortBy)
+    fun searchQuestion(sortBy: SortedBy, orderBy: OrderBy) {
+        questionRepository.getQuestions(sortBy, orderBy)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()

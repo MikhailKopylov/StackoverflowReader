@@ -6,4 +6,7 @@
     <string name="search">Search…</string>
     <string name="top_questions">Questions</string>
     <string name="sorted_by">Sorted by</string>
+    <string name="users">Users</string>
+    <string name="question">Question</string>
+    <string name="login">Login</string>
 </resources>
