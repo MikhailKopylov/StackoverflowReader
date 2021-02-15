@@ -2,7 +2,7 @@ package com.amk.stackoverflowreader.mvp.model.repository
 
 import com.amk.stackoverflowreader.mvp.model.api.IDataSource
 import com.amk.stackoverflowreader.mvp.model.api.OrderBy
-import com.amk.stackoverflowreader.mvp.model.api.SortedBy
+import com.amk.stackoverflowreader.mvp.model.api.SortedForQuestion
 import com.amk.stackoverflowreader.mvp.model.entity.question.RequestQuestion
 import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IQuestionRepo
 import io.reactivex.rxjava3.core.Single
@@ -13,10 +13,17 @@ class QuestionRepository(
 ) : IQuestionRepo {
 
 
-    override fun getFindQuestions(query: String, sortBy: SortedBy, orderBy: OrderBy): Single<RequestQuestion> =
-        api.getFindQuestions(query, sortBy, orderBy).subscribeOn(Schedulers.io())
+    override fun getFindQuestions(
+        query: String,
+        sortForQuestion: SortedForQuestion,
+        orderBy: OrderBy
+    ): Single<RequestQuestion> =
+        api.getFindQuestions(query, sortForQuestion, orderBy).subscribeOn(Schedulers.io())
 
-    override fun getQuestions(sortBy: SortedBy, orderBy: OrderBy): Single<RequestQuestion> =
-        api.getAllQuestions(sortBy, orderBy).subscribeOn(Schedulers.io())
+    override fun getQuestions(
+        sortForQuestion: SortedForQuestion,
+        orderBy: OrderBy
+    ): Single<RequestQuestion> =
+        api.getAllQuestions(sortForQuestion, orderBy).subscribeOn(Schedulers.io())
 
 }

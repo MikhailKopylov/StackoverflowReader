@@ -6,7 +6,7 @@ import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class MainPresenter() : MvpPresenter<MainView>() {
+class MainPresenter : MvpPresenter<MainView>() {
 
     @Inject
     lateinit var router: Router
@@ -19,5 +19,6 @@ class MainPresenter() : MvpPresenter<MainView>() {
     fun pressedBackButton() {
         router.exit()
     }
+
 
 }

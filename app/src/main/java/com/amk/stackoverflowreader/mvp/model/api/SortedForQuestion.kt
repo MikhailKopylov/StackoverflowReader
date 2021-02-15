@@ -1,6 +1,6 @@
 package com.amk.stackoverflowreader.mvp.model.api
 
-enum class SortedBy(val category: String) {
+enum class SortedForQuestion(val category: String) {
 
     Activity("activity"),
     Votes("votes"),

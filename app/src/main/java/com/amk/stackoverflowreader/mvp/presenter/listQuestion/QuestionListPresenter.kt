@@ -1,23 +1,27 @@
 package com.amk.stackoverflowreader.mvp.presenter.listQuestion
 
-import android.util.Log
 import com.amk.stackoverflowreader.mvp.model.api.OrderBy
-import com.amk.stackoverflowreader.mvp.model.api.SortedBy
+import com.amk.stackoverflowreader.mvp.model.api.SortedForQuestion
 import com.amk.stackoverflowreader.mvp.model.entity.question.Question
 import com.amk.stackoverflowreader.mvp.model.repository.interfaces.IQuestionRepo
 import com.amk.stackoverflowreader.mvp.view.ItemView
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionItemView
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
 import com.amk.stackoverflowreader.navigation.Screens
-import com.amk.stackoverflowreader.ui.activities.TAG
+import com.amk.stackoverflowreader.ui.Logger
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
+
 class QuestionListPresenter(
     private val mainThreadScheduler: Scheduler,
 ) : MvpPresenter<QuestionListView>() {
+
+    companion object {
+        private const val TAG = "QuestionListPresenter"
+    }
 
     @Inject
     lateinit var router: Router
@@ -49,7 +53,7 @@ class QuestionListPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
-        searchQuestion(SortedBy.Activity, OrderBy.Desc)
+        searchQuestion(SortedForQuestion.Activity, OrderBy.Desc)
 
         questionItemPresenterImpl.itemClickListener = { itemView ->
             val question = questionItemPresenterImpl.listQuestion[itemView.pos]
@@ -58,28 +62,28 @@ class QuestionListPresenter(
 //        loadData()
     }
 
-    fun searchQuestion(question: String, sortBy: SortedBy, orderBy: OrderBy) {
-        questionRepository.getFindQuestions(question, sortBy, orderBy)
+    fun searchQuestion(question: String, sortForQuestion: SortedForQuestion, orderBy: OrderBy) {
+        questionRepository.getFindQuestions(question, sortForQuestion, orderBy)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()
                 questionItemPresenterImpl.listQuestion.addAll(it.items)
                 viewState.updateData()
             }, {
-
+                Logger.printError(TAG, "Error: ${it.message}")
             })
     }
 
 
-    fun searchQuestion(sortBy: SortedBy, orderBy: OrderBy) {
-        questionRepository.getQuestions(sortBy, orderBy)
+    fun searchQuestion(sortForQuestion: SortedForQuestion, orderBy: OrderBy) {
+        questionRepository.getQuestions(sortForQuestion, orderBy)
             .observeOn(mainThreadScheduler)
             .subscribe({
                 questionItemPresenterImpl.listQuestion.clear()
                 questionItemPresenterImpl.listQuestion.addAll(it.items)
                 viewState.updateData()
             }, {
-                Log.e(TAG, it.message.toString())
+                Logger.printError(TAG, it.message.toString())
             })
     }
 

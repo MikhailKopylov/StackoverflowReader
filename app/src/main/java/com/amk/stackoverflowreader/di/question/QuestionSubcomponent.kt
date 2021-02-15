@@ -14,5 +14,5 @@ interface QuestionSubcomponent {
 
     fun answerSubcomponent(): AnswerSubcomponent
 
-    fun inject(questionRepository: QuestionListPresenter)
+    fun inject(questionPresenter: QuestionListPresenter)
 }

@@ -13,7 +13,7 @@ import com.amk.stackoverflowreader.App
 import com.amk.stackoverflowreader.R
 import com.amk.stackoverflowreader.di.question.QuestionSubcomponent
 import com.amk.stackoverflowreader.mvp.model.api.OrderBy
-import com.amk.stackoverflowreader.mvp.model.api.SortedBy
+import com.amk.stackoverflowreader.mvp.model.api.SortedForQuestion
 import com.amk.stackoverflowreader.mvp.model.entity.contexImplementation.GlideImageLoader
 import com.amk.stackoverflowreader.mvp.presenter.listQuestion.QuestionListPresenter
 import com.amk.stackoverflowreader.mvp.view.listQuestion.QuestionListView
@@ -26,8 +26,8 @@ import moxy.ktx.moxyPresenter
 class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButtonListener {
 
     private var questionSubcomponent: QuestionSubcomponent? = null
-    private var sorted: SortedBy = SortedBy.Activity
-    private var order:OrderBy = OrderBy.Desc
+    private var sorted: SortedForQuestion = SortedForQuestion.Activity
+    private var order: OrderBy = OrderBy.Desc
 
     private val presenter by moxyPresenter {
         questionSubcomponent = App.instance.initQuestionSubcomponent()
@@ -66,39 +66,12 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
                 return false
             }
         })
+        //Выбор сортировки
+        chooseSortedBy()
 
-        val adapter = context?.let {
-            ArrayAdapter(
-                it,
-                android.R.layout.simple_spinner_item,
-                SortedBy.values()
-            )
-        }
-        adapter?.let {
-            it.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
-            spinner_sorted.adapter = adapter
-            spinner_sorted.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    sorted = SortedBy.values()[position]
-                    if (search_question.query.isEmpty()) {
-                        presenter.searchQuestion(sorted, order)
-                    } else {
-                        presenter.searchQuestion(search_question.query.toString(), sorted, order)
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    sorted = SortedBy.Activity
-                }
-            }
-        }
-
+        chooseOrderBy()
     }
+
 
     override fun updateData() {
         adapter.notifyDataSetChanged()
@@ -115,4 +88,70 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
     }
 
     override fun pressedBackButton() = presenter.pressedBackButton()
+
+    private fun chooseSortedBy() {
+        val adapter = context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_spinner_item,
+                SortedForQuestion.values()
+            )
+        }
+        adapter?.let {
+            it.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+            spinner_sorted.adapter = adapter
+            spinner_sorted.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    sorted = SortedForQuestion.values()[position]
+                    if (search_question.query.isEmpty()) {
+                        presenter.searchQuestion(sorted, order)
+                    } else {
+                        presenter.searchQuestion(search_question.query.toString(), sorted, order)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    sorted = SortedForQuestion.Activity
+                }
+            }
+        }
+    }
+
+    private fun chooseOrderBy() {
+        val adapter = context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_spinner_item,
+                OrderBy.values()
+            )
+        }
+        adapter?.let {
+            it.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+            spinner_order.adapter = adapter
+            spinner_order.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    order = OrderBy.values()[position]
+                    if (search_question.query.isEmpty()) {
+                        presenter.searchQuestion(sorted, order)
+                    } else {
+                        presenter.searchQuestion(search_question.query.toString(), sorted, order)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    order = OrderBy.Desc
+                }
+            }
+        }
+    }
 }

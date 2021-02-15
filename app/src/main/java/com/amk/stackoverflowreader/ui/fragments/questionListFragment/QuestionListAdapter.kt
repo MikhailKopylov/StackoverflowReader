@@ -60,9 +60,7 @@ class QuestionListAdapter(
     override fun onBindViewHolder(holder: QuestionListHolder, position: Int) {
         holder.pos = position
         holder.containerView.setOnClickListener {
-            listQuestionItemPresenter.itemClickListener?.invoke(
-                holder
-            )
+            listQuestionItemPresenter.itemClickListener?.invoke(holder)
         }
         listQuestionItemPresenter.bindView(holder)
     }

@@ -6,6 +6,7 @@ import com.amk.stackoverflowreader.di.DaggerAppComponent
 import com.amk.stackoverflowreader.di.answer.AnswerSubcomponent
 import com.amk.stackoverflowreader.di.modules.AppModule
 import com.amk.stackoverflowreader.di.question.QuestionSubcomponent
+import com.amk.stackoverflowreader.di.user.UserSubcomponent
 
 class App : Application() {
 
@@ -14,6 +15,7 @@ class App : Application() {
 
     var questionSubcomponent: QuestionSubcomponent? = null
     var answerSubcomponent: AnswerSubcomponent? = null
+    var userSubcomponent: UserSubcomponent? = null
 
     companion object {
         lateinit var instance: App
@@ -42,6 +44,14 @@ class App : Application() {
 
     fun releaseAnswerSubcomponent() = appComponent.answerSubcomponent().also {
         answerSubcomponent = null
+    }
+
+    fun initUserSubcomponent() = appComponent.userSubcomponent().also {
+        userSubcomponent = it
+    }
+
+    fun releaseUserSubcomponent() = appComponent.userSubcomponent().also {
+        userSubcomponent = null
     }
 
 
