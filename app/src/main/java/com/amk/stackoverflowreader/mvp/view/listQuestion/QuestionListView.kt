@@ -10,5 +10,6 @@ interface QuestionListView : MvpView {
     fun init()
     fun updateData()
     fun showClick(pos: Int)
+    fun hideLoadQuestions()
     fun release()
 }

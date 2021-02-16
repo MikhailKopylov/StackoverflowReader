@@ -75,6 +75,7 @@ class UserListPresenter(
                 userItemPresenter.listUser.clear()
                 userItemPresenter.listUser.addAll(it.items)
                 viewState.updateData()
+                viewState.hideLoadUsers()
             }, {
                 Logger.printError(TAG, "Error: ${it.message}")
             })
@@ -87,6 +88,7 @@ class UserListPresenter(
                 userItemPresenter.listUser.clear()
                 userItemPresenter.listUser.addAll(it.items)
                 viewState.updateData()
+                viewState.hideLoadUsers()
             }, {
                 Logger.printError(TAG, "Error: ${it.message}")
             })

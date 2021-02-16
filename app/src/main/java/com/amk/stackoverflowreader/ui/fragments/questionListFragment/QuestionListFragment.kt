@@ -82,6 +82,10 @@ class QuestionListFragment : MvpAppCompatFragment(), QuestionListView, BackButto
         Toast.makeText(context, "Press $pos", Toast.LENGTH_SHORT).show()
     }
 
+    override fun hideLoadQuestions() {
+        tv_load_data.visibility = View.GONE
+    }
+
     override fun release() {
         questionSubcomponent = null
         App.instance.releaseQuestionSubcomponent()

@@ -11,4 +11,6 @@
     <string name="login">Login</string>
     <string name="filter_by_user">Filter by user</string>
     <string name="order_by">Order by</string>
+    <string name="load_data">Load questions…</string>
+    <string name="load_user">Load users…</string>
 </resources>

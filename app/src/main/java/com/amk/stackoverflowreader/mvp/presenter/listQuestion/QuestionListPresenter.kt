@@ -69,6 +69,7 @@ class QuestionListPresenter(
                 questionItemPresenterImpl.listQuestion.clear()
                 questionItemPresenterImpl.listQuestion.addAll(it.items)
                 viewState.updateData()
+                viewState.hideLoadQuestions()
             }, {
                 Logger.printError(TAG, "Error: ${it.message}")
             })
@@ -82,6 +83,7 @@ class QuestionListPresenter(
                 questionItemPresenterImpl.listQuestion.clear()
                 questionItemPresenterImpl.listQuestion.addAll(it.items)
                 viewState.updateData()
+                viewState.hideLoadQuestions()
             }, {
                 Logger.printError(TAG, it.message.toString())
             })

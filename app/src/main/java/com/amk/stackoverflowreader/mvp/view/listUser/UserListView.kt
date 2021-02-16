@@ -10,5 +10,6 @@ interface UserListView : MvpView {
     fun init()
     fun updateData()
     fun showClick(pos: Int)
+    fun hideLoadUsers()
     fun release()
 }

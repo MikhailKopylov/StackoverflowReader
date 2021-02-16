@@ -77,6 +77,10 @@ class UserListFragment : MvpAppCompatFragment(), UserListView, BackButtonListene
         Toast.makeText(context, "Press $pos", Toast.LENGTH_SHORT).show()
     }
 
+    override fun hideLoadUsers() {
+        tv_load_users.visibility = View.GONE
+    }
+
     override fun release() {
         userSubcomponent = null
         App.instance.releaseUserSubcomponent()
