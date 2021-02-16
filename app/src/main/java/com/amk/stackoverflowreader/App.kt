@@ -4,6 +4,7 @@ import android.app.Application
 import com.amk.stackoverflowreader.di.AppComponent
 import com.amk.stackoverflowreader.di.DaggerAppComponent
 import com.amk.stackoverflowreader.di.answer.AnswerSubcomponent
+import com.amk.stackoverflowreader.di.login.LoginSubcomponent
 import com.amk.stackoverflowreader.di.modules.AppModule
 import com.amk.stackoverflowreader.di.question.QuestionSubcomponent
 import com.amk.stackoverflowreader.di.user.UserSubcomponent
@@ -16,6 +17,7 @@ class App : Application() {
     var questionSubcomponent: QuestionSubcomponent? = null
     var answerSubcomponent: AnswerSubcomponent? = null
     var userSubcomponent: UserSubcomponent? = null
+    var loginSubcomponent: LoginSubcomponent? = null
 
     companion object {
         lateinit var instance: App
@@ -52,6 +54,14 @@ class App : Application() {
 
     fun releaseUserSubcomponent() = appComponent.userSubcomponent().also {
         userSubcomponent = null
+    }
+
+    fun initLoginSubcomponent() = appComponent.loginSubcomponent().also {
+        loginSubcomponent = it
+    }
+
+    fun releaseLoginSubcomponent() = appComponent.loginSubcomponent().also {
+        loginSubcomponent = null
     }
 
 

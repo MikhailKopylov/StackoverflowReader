@@ -52,6 +52,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
                     setSelectItem(item)
                     return@OnNavigationItemSelectedListener true
                 }
+
+                R.id.navigation_login -> {
+                    router.newRootScreen(Screens.LoginScreen())
+                    setSelectItem(item)
+                    return@OnNavigationItemSelectedListener true
+                }
                 else -> return@OnNavigationItemSelectedListener false
             }
         }
