@@ -6,4 +6,4 @@
 Экран данными о выбранном пользователе
 Экран входа в учётную запись
 
-Используемые технологии: Kotlin, MVP, RxJava, Dagger2, Moxy, Cicerone. 
+Используемые технологии: Kotlin, MVP, RxJava, Dagger2, Room, Moxy, Cicerone, Glide. 
